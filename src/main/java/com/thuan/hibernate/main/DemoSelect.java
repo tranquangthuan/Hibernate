@@ -1,4 +1,4 @@
-package com.thuan.hibernate;
+package com.thuan.hibernate.main;
 
 import java.util.List;
 

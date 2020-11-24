@@ -1,6 +1,5 @@
-package com.thuan.hibernate;
+package com.thuan.hibernate.main;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,7 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import com.thuan.hibernate.entity.Company;
 import com.thuan.hibernate.entity.CompanyEmployee;
 
-public class FindCompanyEmployee {
+public class CompanyEmployeeMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -23,17 +22,25 @@ public class FindCompanyEmployee {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 
-		Company company = session.find(Company.class, 1);
-		System.out.println("--aaa");
-		
-		company.getEmployees().forEach(employee -> System.out.println(employee));
+		Company company = new Company();
+		company.setName("Google");
+		session.save(company);
 
-		System.out.println(company);
+		CompanyEmployee emp1 = new CompanyEmployee();
+		emp1.setName("kai");
+		emp1.setCompany(company);
 
-		System.out.println("--------CompanyEmployee---------");
-		CompanyEmployee emp1 = session.find(CompanyEmployee.class, 1);
-		System.out.println(emp1);
+		CompanyEmployee emp2 = new CompanyEmployee();
+		emp2.setName("sena");
+		emp2.setCompany(company);
+
+		session.save(emp1);
+		session.save(emp2);
 		t.commit();
+		System.out.println("successfully saved");
+		System.out.println(company);
+		System.out.println(emp1);
+		System.out.println(emp2);
 		factory.close();
 		session.close();
 	}
